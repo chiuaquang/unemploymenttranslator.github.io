@@ -16,6 +16,6 @@
   "theme_color": "#000000",
   "background_color": "#000000",
   "display": "standalone",
-  "start_url": "/",
-  "scope": "/"
+  "start_url": "/unemploymenttranslator.github.io/",
+  "scope": "/unemploymenttranslator.github.io/"
 }
