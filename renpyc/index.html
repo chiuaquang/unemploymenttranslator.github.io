@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="manifest" href="/assets/manifest.json" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta content="ie=edge" http-equiv="X-UA-Compatible" />
+  <meta name="theme-color" content="#0b0b10" />
+  <link rel="canonical" href="https://chiuaquang.github.io/unemploymenttranslator.github.io/" />
+  <meta name="keywords" content="translator renpy, translator rpg maker, translate visual novel, translate game, translator online, renpy, rpgm, renpy translate, rpgm translate, avns, unemployment translator, renpy game, rpgm game, rpy, json" />
+
+  <meta property="og:title" content="Translate Tool for Ren'Py & RPGM Games" />
+  <meta property="og:description" content="Simple, Modern Web Toolkit for Translating Ren’Py & RPG Maker Games - without installing anything. Support Multiple Languages." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://chiuaquang.github.io/unemploymenttranslator.github.io/" />
+  <meta property="og:image" content="https://chiuaquang.github.io/unemploymenttranslator.github.io/assets/thumbnail.jpg" />
+  <meta property="og:image:secure_url" content="https://chiuaquang.github.io/unemploymenttranslator.github.io/assets/thumbnail.jpg" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:site_name" content="Unemployment Translator" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Unemployment Translator" />
+  <meta name="twitter:description" content="Simple, Modern Web Toolkit for Translating Ren’Py & RPG Maker Games - without installing anything. Support Multiple Languages." />
+  <meta name="twitter:image" content="https://chiuaquang.github.io/unemploymenttranslator.github.io/assets/thumbnail.jpg" />
+
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/logo.jpeg" />
+  <meta name="apple-mobile-web-app-title" content="Unemployment Translator" />
+  <meta name="mobile-web-app-title" content="Unemployment Translator" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  
+  <title>Ren'Py Compiler | Unemployment Translator</title>
+  
+  <link rel="stylesheet" href="./renpyc.css" />
+</head>
+
+<body>
+  <header class="top">
+    <a href="/">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"><img src="../assets/logo.jpeg" alt="Unemployment Translator" /></div>
+      <div class="brand-text">
+        <div class="brand-title" style="color:#fff;text-decoration:none">Unemployment Translator</div>
+        <div class="brand-subtitle">Ren’Py Compiler</div>
+      </div>
+    </div>
+    </a>
+
+    <div class="top-right">
+      <select id="mode" title="Mode">
+        <option value="auto">Auto</option>
+        <option value="decompile">Decompile .rpyc</option>
+        <option value="extract_rpa">Extract .rpa</option>
+        <option value="extract_rpi">Extract .rpi</option>
+        <option value="pack_rpa">Pack/Repack .rpa</option>
+      </select>
+
+      <label class="inline">
+        <input type="checkbox" id="tryHarder" />
+        try-harder
+      </label>
+
+      <button id="runBtn">Run</button>
+      <button id="saveBtn" disabled>Save</button>
+      <button id="diffBtn" class="mutebtn" disabled>Diff</button>
+
+      <span class="sep"></span>
+
+      <button id="zipBtn" disabled>Download ZIP</button>
+      <button id="fileBtn" class="mutebtn" disabled>Download file</button>
+      <a href="../" class="btn" style="text-decoration:none;color:#efefef;">Back</a>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- Sidebar -->
+    <aside class="side">
+      <div id="drop" class="drop">
+        <input id="fileInput" type="file" multiple />
+        <div class="drop-title">Upload</div>
+        <div class="drop-text">Drag n Drop or click to choose. (Max 200MB)</div>
+        <div class="drop-text">Support multiple file or ZIP. (.rpi usually requires a .rpa file with the same name.)</div>
+
+        <div class="row">
+          <label class="btn">
+            <input id="folderInput" type="file" multiple webkitdirectory />
+            Select folder
+          </label>
+        </div>
+      </div>
+
+      <div class="row row-tight">
+        <button id="inputTab" class="tabbtn">Input</button>
+        <button id="outputTab" class="tabbtn">Output</button>
+      </div>
+
+      <input id="search" class="search" placeholder="Search..." />
+
+      <div class="meta">
+        Selected folder: <b id="selectedFolder">none</b>
+      </div>
+
+      <details class="box">
+        <summary>Pack/Repack</summary>
+
+        <div class="grid">
+          <label>
+            <span>Source where</span>
+            <select id="packWhere">
+              <option value="output">output</option>
+              <option value="input">input</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Source folder path</span>
+            <input id="packPath" placeholder="e.g. rpa_extract/game (empty=root)" />
+          </label>
+
+          <label>
+            <span>Archive name</span>
+            <input id="packName" value="repacked.rpa" />
+          </label>
+
+          <label>
+            <span>RPA version</span>
+            <select id="packVersion">
+              <option value="3">v3</option>
+              <option value="2">v2</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Key (hex)</span>
+            <input id="packKey" value="0xDEADBEEF" />
+          </label>
+
+          <label>
+            <span>Padding</span>
+            <input id="packPadding" type="number" value="0" min="0" />
+          </label>
+        </div>
+
+        <div class="row">
+          <button id="useSelectedBtn" class="mutebtn">Use selected folder</button>
+          <button id="repackBtn" class="mutebtn">Repack now</button>
+        </div>
+
+        <div class="hint">
+          Tip: Extract .rpa → edit in output → select folder <code>output:rpa_extract/&lt;name&gt;</code> → Repack.
+        </div>
+      </details>
+
+      <div class="row row-tight">
+        <button id="mkdirBtn" class="mutebtn" disabled>New folder</button>
+        <button id="renameBtn" class="mutebtn" disabled>Rename/Move</button>
+        <button id="deleteBtn" class="mutebtn" disabled>Delete</button>
+      </div>
+
+      <div id="tree" class="tree" style="max-height:400px;overflow-y:auto"></div>
+
+      <div id="err" class="err" hidden></div>
+      
+      <a href="../" class="btn" style="display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;margin-bottom:12px;margin-top:12px;color:#efefef;">⬅️ Back to Main Menu</a>
+      <div class="drop" style="border:1px solid var(--line);margin-bottom:3px">
+        <div class="drop-title">Support</div>
+        <div class="row row-tight">
+          <a class="btn" style="text-decoration:none;color:#efefef" href="https://www.buymeacoffee.com/_zkn" target="_blank" rel="noopener noreferrer">☕ Buy me a coffee</a>
+          <a class="btn" style="text-decoration:none;border-color:#ac4d49;color:#efefef" href="https://www.patreon.com/ZiolKen" target="_blank" rel="noopener noreferrer">❤️ Patreon</a>
+        </div>
+      </div>
+      <div class="sub" id="apiInfo">-</div>
+      <div class="sub" id="jobBadge">No job</div>
+    </aside>
+
+    <!-- Main content -->
+    <section class="main">
+      <div class="bar">
+        <div class="bar-title">Preview / Editor</div>
+        <div class="bar-sub" id="activeFile">No file</div>
+      </div>
+
+      <div class="tabs" id="tabs"></div>
+
+      <div id="preview" class="preview">
+        <div class="placeholder">Select 1 file to preview.</div>
+      </div>
+
+      <div class="logs">
+        <div class="logs-title">Logs</div>
+        <pre id="logs" style="max-height:100px;overflow-y:auto">No logs yet.</pre>
+      </div>
+    </section>
+  </main>
+
+  <script src="./renpyc.js"></script>
+</body>
+
+</html>
