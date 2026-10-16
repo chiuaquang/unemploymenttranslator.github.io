@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://chiuaquang.github.io/unemploymenttranslator.github.io/sitemap.xml
